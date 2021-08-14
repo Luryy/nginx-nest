@@ -8,6 +8,7 @@ export class AppService {
   constructor(@InjectModel(App.name) private appModel: Model<AppDocument>) {}
 
   getAll(): Promise<AppDocument[]> {
+    console.log('Returning');
     return this.appModel.find().exec();
   }
 

@@ -1,0 +1,52 @@
+version: '3'
+services:
+    nginx:
+        build:
+            dockerfile: ./docker/nginx.dockerfile
+            context: .
+        container_name: nginx
+        ports:
+            - "80:80"
+        depends_on: 
+            - "node1"
+            - "node2"
+            - "node3"
+
+    mongodb:
+        image: mongo
+
+    node1:
+        build:
+            dockerfile: ./docker/nest.dockerfile
+            context: .
+        container_name: nest-1
+        environment:
+            MONGO_URL: mongodb://mongodb:27017
+        ports:
+            - "3000"
+        depends_on:
+            - "mongodb"
+
+    node2:
+        build:
+            dockerfile: ./docker/nest.dockerfile
+            context: .
+        container_name: nest-2
+        environment:
+            MONGO_URL: mongodb://mongodb:27017
+        ports:
+            - "3000"
+        depends_on:
+            - "mongodb"
+
+    node3:
+        build:
+            dockerfile: ./docker/nest.dockerfile
+            context: .
+        container_name: nest-3
+        environment:
+            MONGO_URL: mongodb://mongodb:27017
+        ports:
+            - "3000"
+        depends_on:
+            - "mongodb"
